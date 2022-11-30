@@ -7,7 +7,7 @@ use log::info;
 pub mod frames;
 pub mod utils;
 
-pub const API_URL: &str = "http://srv04.elpi-tech.ru";
+pub const API_URL: &str = "http://localhost:8080";   //"http://srv04.elpi-tech.ru";
 
 #[cfg(not(target_arch = "wasm32"))]
 fn main() {

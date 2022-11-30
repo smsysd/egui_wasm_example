@@ -14,11 +14,12 @@ pub struct GenAppData {
 }
 
 pub enum ControlRequest {
-	Close(String),				// FrameName
-	Open(String),				// FrameName
-	OpenExact(String),			// FrameName
-	New(Box<dyn Drawable>),		// Frame
-	Delete(String)				// FrameName
+	Close(String),					// FrameName
+	Open(String),					// FrameName
+	OpenExact(String),				// FrameName
+	New(Box<dyn Drawable>),			// Frame
+	Delete(String),					// FrameName
+	DeleteAllWithout(Vec<String>)	// Vec<FrameName>
 }
 
 pub struct Control {
@@ -73,6 +74,21 @@ impl Control {
 								break;
 							}
 						}
+					},
+					ControlRequest::DeleteAllWithout(without) => {
+						let mut is_deleted = false;
+						loop {
+							for i in 0..frames.len() {
+								if !without.contains(&String::from(frames[i].name())) {
+									frames.remove(i);
+									is_deleted = true;
+									break;
+								}
+							}
+							if !is_deleted {
+								break;
+							}
+						}
 					}
 				}
 			} else {
@@ -109,6 +125,15 @@ impl Control {
 	/// Delete frame from redraw loop, frame data will be non recoverable
 	pub fn delete_frame(&mut self, name: &str) {
 		self.requests.push(ControlRequest::Delete(String::from(name)));
+	}
+
+	/// Delete frame from redraw loop, frame data will be non recoverable
+	pub fn delete_frames_all_without(&mut self, without: Vec<&str>) {
+		let mut without_own = Vec::new();
+		for name in without {
+			without_own.push(String::from(name));
+		}
+		self.requests.push(ControlRequest::DeleteAllWithout(without_own));
 	}
 }
 
