@@ -1,6 +1,4 @@
 use std::sync::mpsc::Receiver;
-use std::thread;
-use std::time::Duration;
 
 use eframe::egui;
 use egui::Align2;

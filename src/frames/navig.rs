@@ -1,6 +1,3 @@
-use std::thread;
-use std::time::Duration;
-
 use eframe::egui;
 use super::Control;
 use super::Drawable;
@@ -25,7 +22,7 @@ impl Drawable for Navig {
 		&self.name
 	}
 
-	fn redraw(&mut self, ctx: &egui::Context, gen_data: &mut GenAppData, ctl: &mut Control) {
+	fn redraw(&mut self, ctx: &egui::Context, _gen_data: &mut GenAppData, ctl: &mut Control) {
 		egui::Window::new(self.name())
 		.open(&mut true)
 		.show(ctx, |ui| {

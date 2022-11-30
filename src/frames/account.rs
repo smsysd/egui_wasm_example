@@ -30,7 +30,7 @@ impl Drawable for Account {
 		&self.name
 	}
 
-	fn redraw(&mut self, ctx: &egui::Context, gen_data: &mut GenAppData, ctl: &mut Control) {
+	fn redraw(&mut self, ctx: &egui::Context, gen_data: &mut GenAppData, _ctl: &mut Control) {
 		egui::Window::new(self.name())
 		.open(&mut true)
 		.show(ctx, |ui| {
